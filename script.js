@@ -18,7 +18,6 @@ function handleEllipsisElements() {
     const maxLines = 2;
     const textFromAttribute = e.getAttribute('data-text');
     const lineHeight = getLineHeight(e);
-    console.log(lineHeight)
     const totalPadding = getTotalVerticalPadding(e);
 
     let truncateText = '';
