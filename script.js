@@ -1,20 +1,24 @@
-const onButtonClicked = (sectionId) => {
-  const pageSections = Array.from(document.getElementsByTagName('section'));
-  pageSections.forEach((section) => {
+function onButtonClicked(sectionId) {
+  const pageSections = document.getElementsByTagName('section');
+
+  for(let i = 0 ; i < pageSections.length; i++) {
+    const section = pageSections[i];
     section.style.display = 'none';
-  });
+  }
+
   const currentSection = document.getElementById(sectionId);
   currentSection.style.display = 'block';
 };
 
-const handleEllipsisElements = () => {
+function handleEllipsisElements() {
   const elementsToEllipsis = document.getElementsByClassName('js-ellipsis');
-  const elementsToEllipsisArray = Array.from(elementsToEllipsis);
 
-  elementsToEllipsisArray.forEach((e) => {
+  for(let i = 0 ; i < elementsToEllipsis.length; i++) {
+    const e = elementsToEllipsis[i]
     const maxLines = 2;
     const textFromAttribute = e.getAttribute('data-text');
     const lineHeight = getLineHeight(e);
+    console.log(lineHeight)
     const totalPadding = getTotalVerticalPadding(e);
 
     let truncateText = '';
@@ -32,13 +36,10 @@ const handleEllipsisElements = () => {
       truncateTextParts.pop();
       e.innerHTML = truncateTextParts.join(' ') + '...';
     }
-  });
+  }
 };
 
-addEventListener('resize', handleEllipsisElements);
-addEventListener('load', handleEllipsisElements);
-
-const getLineHeight = (element) => {
+function getLineHeight(element) {
   const lineHeight = window.getComputedStyle(element)['line-height'];
   if (lineHeight === 'normal') {
     const normalLineHeightMultiplaier = 1.5;
@@ -51,9 +52,12 @@ const getLineHeight = (element) => {
   }
 };
 
-const getTotalVerticalPadding = (element) => {
+function getTotalVerticalPadding(element) {
   const topPadding = window.getComputedStyle(element)['padding-top'];
   const bottomPadding = window.getComputedStyle(element)['padding-bottom'];
 
   return parseFloat(topPadding) + parseFloat(bottomPadding);
 };
+
+addEventListener('resize', handleEllipsisElements);
+addEventListener('load', handleEllipsisElements);
